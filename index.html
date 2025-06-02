@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 Perfect Delivery Gauteng Open - Tournament Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tab-btn.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        select, input {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .badge {
+            background: #3498db;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .team-list {
+            list-style: none;
+        }
+
+        .team-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-item:last-child {
+            border-bottom: none;
+        }
+
+        .team-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .club-name {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .rink-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .rink-card {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .rink-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .rink-card.occupied {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+        }
+
+        .rink-card.available {
+            background: linear-gradient(135deg, #55efc4, #00b894);
+        }
+
+        .schedule-item {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .time-badge {
+            background: #2ecc71;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .attendance-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .attendance-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .quantity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quantity-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .quantity-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .quantity-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .rink-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 2025 Perfect Delivery Gauteng Open</h1>
+            <p>Bronkhorstspruit Bowling Club | Tournament Management System</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="overview">📊 Overview</button>
+            <button class="tab-btn" data-tab="attendance">👥 Attendance & Quantities</button>
+            <button class="tab-btn" data-tab="pairs">🎳 Men's Pairs</button>
+            <button class="tab-btn" data-tab="singles">🎯 Men's Singles</button>
+            <button class="tab-btn" data-tab="rinks">🏟️ Rink Management</button>
+            <button class="tab-btn" data-tab="schedule">📅 Schedule</button>
+            <button class="tab-btn" data-tab="clubs">🏛️ Clubs & Regions</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="tab-content active" id="overview">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">48</div>
+                    <div class="stat-label">Total Pairs Players</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">36</div>
+                    <div class="stat-label">Singles Players</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">84</div>
+                    <div class="stat-label">Total Participants</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Available Rinks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Competition Days</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">35</div>
+                    <div class="stat-label">Participating Clubs</div>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 20px;">Tournament Quick Facts</h3>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Men's Pairs</span>
+                        <span class="badge">July 5-6</span>
+                    </div>
+                    <ul class="team-list">
+                        <li class="team-item">
+                            <span>4 Sections</span>
+                            <span class="club-name">6 teams each</span>
+                        </li>
+                        <li class="team-item">
+                            <span>24 Teams Total</span>
+                            <span class="club-name">48 players</span>
+                        </li>
+                        <li class="team-item">
+                            <span>5 Rounds</span>
+                            <span class="club-name">Round-robin</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Men's Singles</span>
+                        <span class="badge">July 12</span>
+                    </div>
+                    <ul class="team-list">
+                        <li class="team-item">
+                            <span>12 Sections</span>
+                            <span class="club-name">3 players each</span>
+                        </li>
+                        <li class="team-item">
+                            <span>36 Players Total</span>
+                            <span class="club-name">Individual competition</span>
+                        </li>
+                        <li class="team-item">
+                            <span>3 Games per Section</span>
+                            <span class="club-name">Unique format</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance & Quantities Tab -->
+        <div class="tab-content" id="attendance">
+            <div class="attendance-section">
+                <div class="attendance-title">📊 Player Attendance & Resource Planning</div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">84</div>
+                        <div class="stat-label">Total Unique Players</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">48</div>
+                        <div class="stat-label">Pairs Players (24 teams)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">36</div>
+                        <div class="stat-label">Singles Players</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Regional Associations</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 30px 0 20px 0;">📋 Catering & Facilities Quantities</h3>
+                <div class="quantity-grid">
+                    <div class="quantity-item">
+                        <div class="quantity-label">🍽️ Peak Day Attendance</div>
+                        <div class="quantity-value">84 people (July 5 & 12)</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">☕ Breakfast/Coffee Service</div>
+                        <div class="quantity-value">84 servings (09:00 start)</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">🥪 Lunch Requirements</div>
+                        <div class="quantity-value">84 meals daily</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">🚗 Parking Spaces Needed</div>
+                        <div class="quantity-value">60-70 spaces</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">🚻 Restroom Facilities</div>
+                        <div class="quantity-value">For 84 people peak</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">🏆 Awards/Prizes</div>
+                        <div class="quantity-value">16 sections (winners/runners-up)</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 30px 0 20px 0;">📅 Daily Breakdown</h3>
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">July 5, 2025 (Saturday)</span>
+                            <span class="badge">Day 1 Pairs</span>
+                        </div>
+                        <ul class="team-list">
+                            <li class="team-item">
+                                <span>Players Present</span>
+                                <span class="club-name">48 players</span>
+                            </li>
+                            <li class="team-item">
+                                <span>Session Times</span>
+                                <span class="club-name">09:00, 11:30, 14:30</span>
+                            </li>
+                            <li class="team-item">
+                                <span>Meals Required</span>
+                                <span class="club-name">Breakfast, Lunch, Tea</span>
+                            </li>
+                            <li class="team-item">
+                                <span>Duration</span>
+                                <span class="club-name">09:00 - ~17:00</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">July 6, 2025 (Sunday)</span>
+                            <span class="badge">Day 2 Pairs</span>
+                        </div>
+                        <ul class="team-list">
+                            <li class="team-item">
+                                <span>Players Present</span>
+                                <span class="club-name">48 players</span>
+                            </li>
+                            <li class="team-item">
+                                <span>Session Times</span>
+                                <span class="club-name">09:00, 11:30</span>
+                            </li>
+                            <li class="team-item">
+                                <span>Meals Required</span>
+                                <span class="club-name">Breakfast, Lunch</span>
+                            </li>
+                            <li class="team-item">
+                                <span>Duration</span>
+                                <span class="club-name">09:00 - ~14:00</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">July 12, 2025 (Saturday)</span>
+                            <span class="badge">Singles Day</span>
+                        </div>
+                        <ul class="team-list">
+                            <li class="team-item">
+                                <span>Players Present</span>
+                                <span class="club-name">36 players</span>
+                            </li>
+                            <li class="team-item">
+                                <span>Session Times</span>
+                                <span class="club-name">09:30 start</span>
+                            </li>
+                            <li class="team-item">
+                                <span>Meals Required</span>
+                                <span class="club-name">Breakfast, Lunch</span>
+                            </li>
+                            <li class="team-item">
+                                <span>Duration</span>
+                                <span class="club-name">09:30 - ~15:00</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="margin: 30px 0 20px 0;">🏟️ Equipment & Setup Requirements</h3>
+                <div class="quantity-grid">
+                    <div class="quantity-item">
+                        <div class="quantity-label">🎳 Rinks in Use</div>
+                        <div class="quantity-value">All 12 rinks (A1-A6, B1-B6)</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">📋 Score Cards</div>
+                        <div class="quantity-value">120 cards (pairs) + 108 cards (singles)</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">✏️ Marking Equipment</div>
+                        <div class="quantity-value">36 sets (pencils, boards)</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">🪑 Seating Areas</div>
+                        <div class="quantity-value">84+ chairs around rinks</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">📢 Announcements</div>
+                        <div class="quantity-value">PA system for 12 rinks</div>
+                    </div>
+                    <div class="quantity-item">
+                        <div class="quantity-label">🏆 Prize Presentation</div>
+                        <div class="quantity-value">Stage/area for 16 categories</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pairs Tab -->
+        <div class="tab-content" id="pairs">
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Filter by Section:</label>
+                    <select id="sectionFilter">
+                        <option value="">All Sections</option>
+                        <option value="12">Section 12</option>
+                        <option value="14">Section 14</option>
+                        <option value="21">Section 21</option>
+                        <option value="25">Section 25</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Search Teams:</label>
+                    <input type="text" id="teamSearch" placeholder="Search by player or club name..." class="search-box">
+                </div>
+            </div>
+
+            <div id="pairsGrid" class="grid"></div>
+        </div>
+
+        <!-- Singles Tab -->
+        <div class="tab-content" id="singles">
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Filter by Section:</label>
+                    <select id="singlesFilter">
+                        <option value="">All Sections</option>
+                        <option value="28">Section 28</option>
+                        <option value="42">Section 42</option>
+                        <option value="56">Section 56</option>
+                        <option value="57">Section 57</option>
+                        <option value="79">Section 79</option>
+                        <option value="93">Section 93</option>
+                        <option value="96">Section 96</option>
+                        <option value="99">Section 99</option>
+                        <option value="113">Section 113</option>
+                        <option value="115">Section 115</option>
+                        <option value="131">Section 131</option>
+                        <option value="134">Section 134</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Search Players:</label>
+                    <input type="text" id="playerSearch" placeholder="Search by player or club name..." class="search-box">
+                </div>
+            </div>
+
+            <div id="singlesGrid" class="grid"></div>
+        </div>
+
+        <!-- Rinks Tab -->
+        <div class="tab-content" id="rinks">
+            <h3 style="margin-bottom: 20px;">🏟️ Rink Status & Management</h3>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Competition Day:</label>
+                    <select id="dayFilter">
+                        <option value="pairs1">July 5 - Pairs Day 1</option>
+                        <option value="pairs2">July 6 - Pairs Day 2</option>
+                        <option value="singles">July 12 - Singles</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Time Slot:</label>
+                    <select id="timeFilter">
+                        <option value="">All Times</option>
+                        <option value="09:00">09:00</option>
+                        <option value="09:30">09:30</option>
+                        <option value="11:30">11:30</option>
+                        <option value="14:30">14:30</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="legend" style="margin-bottom: 20px;">
+                <span style="display: inline-block; width: 20px; height: 20px; background: linear-gradient(135deg, #55efc4, #00b894); margin-right: 10px; border-radius: 4px;"></span> Available
+                <span style="display: inline-block; width: 20px; height: 20px; background: linear-gradient(135deg, #fd79a8, #e84393); margin: 0 10px 0 20px; border-radius: 4px;"></span> Occupied
+                <span style="display: inline-block; width: 20px; height: 20px; background: linear-gradient(135deg, #74b9ff, #0984e3); margin-left: 20px; border-radius: 4px;"></span> Click for Details
+            </div>
+
+            <div class="rink-grid" id="rinkGrid"></div>
+        </div>
+
+        <!-- Schedule Tab -->
+        <div class="tab-content" id="schedule">
+            <h3 style="margin-bottom: 20px;">📅 Complete Tournament Schedule</h3>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Filter by Date:</label>
+                    <select id="scheduleFilter">
+                        <option value="">All Days</option>
+                        <option value="2025-07-05">July 5, 2025</option>
+                        <option value="2025-07-06">July 6, 2025</option>
+                        <option value="2025-07-12">July 12, 2025</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="scheduleContent"></div>
+        </div>
+
+        <!-- Clubs Tab -->
+        <div class="tab-content" id="clubs">
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Filter by Region:</label>
+                    <select id="regionFilter">
+                        <option value="">All Regions</option>
+                        <option value="BGN">BGN - Gauteng North</option>
+                        <option value="JBA">JBA - Johannesburg</option>
+                        <option value="EKB">EKB - East Rand</option>
+                        <option value="SBA">SBA - Southern/West Rand</option>
+                        <option value="NWB">NWB - North West</option>
+                        <option value="MBA">MBA - Mpumalanga</option>
+                        <option value="SED">SED - Free State</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="clubsGrid" class="grid"></div>
+        </div>
+    </div>
+
+    <script>
+        const pairsData = {
+            "12": [
+                { name: "Stone, Izak / Brink, S", club: "Pta Municipals", region: "BGN" },
+                { name: "Lindeque, Gerrie / De Lange, Bernardus", club: "Wingate Park", region: "BGN" },
+                { name: "Nel, R / Do Couto, J", club: "Bedfordview", region: "JBA" },
+                { name: "Prinsloo, Vaino / Olmesdahl, Fritz", club: "Ermelo Bowling Club", region: "MBA" },
+                { name: "Maritz, Louis / De Ponte, Paul", club: "Parys", region: "NWB" },
+                { name: "Joubert, Gideon / De Jager, Loukie", club: "Rustenburg", region: "SBA" }
+            ],
+            "14": [
+                { name: "Wessels, Eugene / Engelbrecht, Dolla", club: "Pta Municipals", region: "BGN" },
+                { name: "Lombard, Kevin / Payze, Steven", club: "PHSOB", region: "BGN" },
+                { name: "Hwala, N / v Wyk, B", club: "Linden", region: "JBA" },
+                { name: "Maddocks, D / Denyer, K", club: "Bryanston Sports", region: "JBA" },
+                { name: "Tearnan, M / Walsh, Terry", club: "Benoni CC", region: "EKB" },
+                { name: "Nicol, Craig / Firman, Andrew", club: "Leases", region: "SBA" }
+            ],
+            "21": [
+                { name: "v Niekerk, Louis / Pieters, Danie / Kleyn, Lou", club: "Brits", region: "BGN" },
+                { name: "v Heerden, Willem / Martignone, Alwyn", club: "Pta Municipals", region: "BGN" },
+                { name: "Vitali, P / Binneman, FJ", club: "Belgravia", region: "JBA" },
+                { name: "Mazaris, Tony / Mckenzie, Ian", club: "Bryanston CC", region: "JBA" },
+                { name: "Fourie, SC / Matthews, L", club: "Benoni", region: "EKB" },
+                { name: "Vermeulen, Dewald / Crafford, Craffie", club: "Krugersdorp", region: "SBA" }
+            ],
+            "25": [
+                { name: "Rakic, A / Georgiev, K", club: "Ferndale", region: "JBA" },
+                { name: "Buxton, Ian / Mc Lean, K", club: "Morningside CC", region: "JBA" },
+                { name: "Gerber, Arnold / De Jager, Chris", club: "PHSOB", region: "BGN" },
+                { name: "v Rooyen, Deon / Coetzee, Cobus", club: "Harlequins", region: "BGN" },
+                { name: "Hatton-Jones, Dean / Grobbelaar, Corrie", club: "Noordheuwel CC", region: "SBA" },
+                { name: "Brooklyn, RE / Marshall, AJ", club: "Benoni CC", region: "EKB" }
+            ]
+        };
+
+        const singlesData = {
+            "28": {
+                players: [
+                    { name: "Rom, Gary", club: "Wingate Park", region: "BGN" },
+                    { name: "Burnett, N", club: "Kempton Park", region: "EKB" },
+                    { name: "Stipanou, A", club: "Bedfordview", region: "JBA" }
+                ],
+                rinks: ["A6", "A2", "A4"]
+            },
+            "42": {
+                players: [
+                    { name: "Allen, Branden", club: "CBCOB", region: "BGN" },
+                    { name: "Scarola, Gian", club: "Morningside CC", region: "JBA" },
+                    { name: "Schipper, W.", club: "Heidelberg", region: "EKB" }
+                ],
+                rinks: ["B3", "B5", "B1"]
+            },
+            "56": {
+                players: [
+                    { name: "Pretorius, H", club: "Modderbee CS", region: "EKB" },
+                    { name: "Wilson, KJ", club: "Villieria", region: "BGN" },
+                    { name: "Viljoen, Joggie", club: "Sasolburg", region: "SED" }
+                ],
+                rinks: ["A3", "A5", "A1"]
+            },
+            "57": {
+                players: [
+                    { name: "v Heerden, Johan", club: "Pretoria North", region: "BGN" },
+                    { name: "Mouton, JC", club: "DCS Leeuwkop", region: "JBA" },
+                    { name: "Pieterse, D", club: "Benoni", region: "EKB" }
+                ],
+                rinks: ["A1", "A3", "A5"]
+            },
+            "79": {
+                players: [
+                    { name: "Ralfe, Kirk", club: "Ridge Park", region: "JBA" },
+                    { name: "Willemse, Maarten", club: "Irene CC", region: "BGN" },
+                    { name: "Claassens, Lionel", club: "Krugersdorp", region: "SBA" }
+                ],
+                rinks: ["A2", "A4", "A6"]
+            },
+            "93": {
+                players: [
+                    { name: "Billau, Colin", club: "Villieria", region: "BGN" },
+                    { name: "Pereira, Tiago", club: "Discovery", region: "SBA" },
+                    { name: "Botha, Erens", club: "Delmas", region: "EKB" }
+                ],
+                rinks: ["B6", "B2", "B4"]
+            },
+            "96": {
+                players: [
+                    { name: "Rhodes, Jonty", club: "Groenkloof", region: "BGN" },
+                    { name: "Maulgue, G", club: "Bedfordview", region: "JBA" },
+                    { name: "vd Merwe, Herman", club: "Heidelberg", region: "EKB" }
+                ],
+                rinks: ["B5", "B1", "B3"]
+            },
+            "99": {
+                players: [
+                    { name: "v Vuuren, Anton", club: "Colbyn-Oostelikes", region: "BGN" },
+                    { name: "Wysoke, Brandon", club: "Bryanston Sports", region: "JBA" },
+                    { name: "Hill, Gene", club: "Zeerust", region: "NWB" }
+                ],
+                rinks: ["A4", "A6", "A2"]
+            },
+            "113": {
+                players: [
+                    { name: "Harty, NC", club: "Jeppe Quondam", region: "JBA" },
+                    { name: "Walsh, Terry", club: "Benoni CC", region: "EKB" },
+                    { name: "Olivier, Ronan", club: "Parys", region: "NWB" }
+                ],
+                rinks: ["B1", "B3", "B5"]
+            },
+            "115": {
+                players: [
+                    { name: "Weideman, Johan", club: "Harlequins", region: "BGN" },
+                    { name: "Mpodu, L", club: "Protea Sports Club", region: "JBA" },
+                    { name: "Goosen, N", club: "Allen Park", region: "EKB" }
+                ],
+                rinks: ["B2", "B4", "B6"]
+            },
+            "131": {
+                players: [
+                    { name: "Mckenzie, K", club: "Linden", region: "JBA" },
+                    { name: "v Heerden, Louis", club: "Pta Municipals", region: "BGN" },
+                    { name: "Olwagen, Mike", club: "Witpoortjie", region: "SBA" }
+                ],
+                rinks: ["B4", "B6", "B2"]
+            },
+            "134": {
+                players: [
+                    { name: "Raper, Graham", club: "Harlequins", region: "BGN" },
+                    { name: "De Smidt, Aidan", club: "Morningside CC", region: "JBA" },
+                    { name: "Hammann, Juan", club: "Krugersdorp", region: "SBA" }
+                ],
+                rinks: ["A5", "A1", "A3"]
+            }
+        };
+
+        const schedule = [
+            { date: "2025-07-05", time: "09:00", event: "Men's Pairs - Round 1", venue: "Bronkhorstspruit", type: "pairs" },
+            { date: "2025-07-05", time: "11:30", event: "Men's Pairs - Round 2", venue: "Bronkhorstspruit", type: "pairs" },
+            { date: "2025-07-05", time: "14:30", event: "Men's Pairs - Round 3", venue: "Bronkhorstspruit", type: "pairs" },
+            { date: "2025-07-06", time: "09:00", event: "Men's Pairs - Round 4", venue: "Bronkhorstspruit", type: "pairs" },
+            { date: "2025-07-06", time: "11:30", event: "Men's Pairs - Round 5", venue: "Bronkhorstspruit", type: "pairs" },
+            { date: "2025-07-12", time: "09:30", event: "Men's Singles - All Sections", venue: "Bronkhorstspruit", type: "singles" }
+        ];
+
+        const rinks = ["A1", "A2", "A3", "A4", "A5", "A6", "B1", "B2", "B3", "B4", "B5", "B6"];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add tab click handlers
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    showTab(tabName, this);
+                });
+            });
+
+            // Add filter handlers
+            document.getElementById('sectionFilter').addEventListener('change', filterPairs);
+            document.getElementById('teamSearch').addEventListener('input', filterPairs);
+            document.getElementById('singlesFilter').addEventListener('change', filterSingles);
+            document.getElementById('playerSearch').addEventListener('input', filterSingles);
+            document.getElementById('dayFilter').addEventListener('change', updateRinks);
+            document.getElementById('timeFilter').addEventListener('change', updateRinks);
+            document.getElementById('scheduleFilter').addEventListener('change', filterSchedule);
+            document.getElementById('regionFilter').addEventListener('change', filterClubs);
+
+            // Initialize default content
+            renderPairs();
+            renderSchedule();
+            renderRinks();
+            renderClubs();
+        });
+
+        function showTab(tabName, buttonElement) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            buttonElement.classList.add('active');
+
+            if (tabName === 'pairs') renderPairs();
+            else if (tabName === 'singles') renderSingles();
+            else if (tabName === 'rinks') renderRinks();
+            else if (tabName === 'schedule') renderSchedule();
+            else if (tabName === 'clubs') renderClubs();
+        }
+
+        function filterPairs() {
+            const sectionFilter = document.getElementById('sectionFilter').value;
+            const searchTerm = document.getElementById('teamSearch').value.toLowerCase();
+            renderPairs(sectionFilter, searchTerm);
+        }
+
+        function filterSingles() {
+            const sectionFilter = document.getElementById('singlesFilter').value;
+            const searchTerm = document.getElementById('playerSearch').value.toLowerCase();
+            renderSingles(sectionFilter, searchTerm);
+        }
+
+        function filterSchedule() {
+            const dateFilter = document.getElementById('scheduleFilter').value;
+            renderSchedule(dateFilter);
+        }
+
+        function filterClubs() {
+            const regionFilter = document.getElementById('regionFilter').value;
+            renderClubs(regionFilter);
+        }
+
+        function updateRinks() {
+            renderRinks();
+        }
+
+        function renderPairs(sectionFilter = '', searchTerm = '') {
+            const grid = document.getElementById('pairsGrid');
+            grid.innerHTML = '';
+
+            Object.keys(pairsData).forEach(sectionNum => {
+                if (sectionFilter && sectionFilter !== sectionNum) return;
+
+                const teams = pairsData[sectionNum];
+                const filteredTeams = teams.filter(team => 
+                    !searchTerm || 
+                    team.name.toLowerCase().includes(searchTerm) || 
+                    team.club.toLowerCase().includes(searchTerm)
+                );
+
+                if (filteredTeams.length === 0 && searchTerm) return;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-title">Section ${sectionNum}</span>
+                        <span class="badge">${filteredTeams.length} teams</span>
+                    </div>
+                    <ul class="team-list">
+                        ${filteredTeams.map((team, index) => `
+                            <li class="team-item">
+                                <div>
+                                    <div class="team-name">${index + 1}. ${team.name}</div>
+                                    <div class="club-name">${team.club} (${team.region})</div>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderSingles(sectionFilter = '', searchTerm = '') {
+            const grid = document.getElementById('singlesGrid');
+            grid.innerHTML = '';
+
+            Object.keys(singlesData).forEach(sectionNum => {
+                if (sectionFilter && sectionFilter !== sectionNum) return;
+
+                const section = singlesData[sectionNum];
+                const filteredPlayers = section.players.filter(player => 
+                    !searchTerm || 
+                    player.name.toLowerCase().includes(searchTerm) || 
+                    player.club.toLowerCase().includes(searchTerm)
+                );
+
+                if (filteredPlayers.length === 0 && searchTerm) return;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-title">Section ${sectionNum}</span>
+                        <span class="badge">Rinks: ${section.rinks.join(', ')}</span>
+                    </div>
+                    <ul class="team-list">
+                        ${filteredPlayers.map((player, index) => `
+                            <li class="team-item">
+                                <div>
+                                    <div class="team-name">${index + 1}. ${player.name}</div>
+                                    <div class="club-name">${player.club} (${player.region})</div>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    <div style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                        <strong>Game Format:</strong><br>
+                        Game 1 (${section.rinks[0]}): Players 1 vs 2, Player 3 marks<br>
+                        Game 2 (${section.rinks[1]}): Player 3 vs Loser, Winner marks<br>
+                        Game 3 (${section.rinks[2]}): Winner vs Player 3, Loser marks
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderRinks() {
+            const grid = document.getElementById('rinkGrid');
+            const day = document.getElementById('dayFilter').value;
+            grid.innerHTML = '';
+
+            rinks.forEach(rink => {
+                const rinkCard = document.createElement('div');
+                rinkCard.className = 'rink-card';
+
+                let status = 'available';
+                let usage = 'Available';
+
+                if (day === 'singles') {
+                    Object.keys(singlesData).forEach(sectionNum => {
+                        const section = singlesData[sectionNum];
+                        if (section.rinks.includes(rink)) {
+                            status = 'occupied';
+                            usage = `Section ${sectionNum}`;
+                        }
+                    });
+                } else {
+                    status = 'occupied';
+                    usage = 'Pairs Competition';
+                }
+
+                rinkCard.classList.add(status);
+                rinkCard.innerHTML = `<h3>${rink}</h3><p>${usage}</p>`;
+                rinkCard.onclick = () => showRinkDetails(rink, day);
+                grid.appendChild(rinkCard);
+            });
+        }
+
+        function showRinkDetails(rink, day) {
+            let details = `Rink ${rink} Details\n\nDay: ${day}\n\n`;
+
+            if (day === 'singles') {
+                Object.keys(singlesData).forEach(sectionNum => {
+                    const section = singlesData[sectionNum];
+                    if (section.rinks.includes(rink)) {
+                        details += `Section ${sectionNum}:\n`;
+                        section.players.forEach((player, index) => {
+                            details += `${index + 1}. ${player.name} (${player.club})\n`;
+                        });
+                        details += '\n';
+                    }
+                });
+            } else {
+                details += 'Used for Pairs Competition - multiple sections rotating\n';
+            }
+
+            alert(details);
+        }
+
+        function renderSchedule(dateFilter = '') {
+            const content = document.getElementById('scheduleContent');
+            content.innerHTML = '';
+
+            const filteredSchedule = schedule.filter(item => 
+                !dateFilter || item.date === dateFilter
+            );
+
+            filteredSchedule.forEach(item => {
+                const scheduleItem = document.createElement('div');
+                scheduleItem.className = 'schedule-item';
+                scheduleItem.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h4>${item.event}</h4>
+                            <p>${new Date(item.date).toLocaleDateString('en-US', { 
+                                weekday: 'long', 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric' 
+                            })}</p>
+                        </div>
+                        <div>
+                            <span class="time-badge">${item.time}</span>
+                        </div>
+                    </div>
+                `;
+                content.appendChild(scheduleItem);
+            });
+        }
+
+        function renderClubs(regionFilter = '') {
+            const grid = document.getElementById('clubsGrid');
+            grid.innerHTML = '';
+
+            const clubsByRegion = {};
+
+            // Collect clubs from pairs
+            Object.values(pairsData).forEach(teams => {
+                teams.forEach(team => {
+                    if (!regionFilter || team.region === regionFilter) {
+                        if (!clubsByRegion[team.region]) {
+                            clubsByRegion[team.region] = new Set();
+                        }
+                        clubsByRegion[team.region].add(team.club);
+                    }
+                });
+            });
+
+            // Collect clubs from singles
+            Object.values(singlesData).forEach(section => {
+                section.players.forEach(player => {
+                    if (!regionFilter || player.region === regionFilter) {
+                        if (!clubsByRegion[player.region]) {
+                            clubsByRegion[player.region] = new Set();
+                        }
+                        clubsByRegion[player.region].add(player.club);
+                    }
+                });
+            });
+
+            const regionNames = {
+                'BGN': 'Gauteng North',
+                'JBA': 'Johannesburg',
+                'EKB': 'East Rand',
+                'SBA': 'Southern/West Rand',
+                'NWB': 'North West',
+                'MBA': 'Mpumalanga',
+                'SED': 'Free State'
+            };
+
+            Object.keys(clubsByRegion).forEach(region => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-title">${region} - ${regionNames[region]}</span>
+                        <span class="badge">${clubsByRegion[region].size} clubs</span>
+                    </div>
+                    <ul class="team-list">
+                        ${Array.from(clubsByRegion[region]).map(club => `
+                            <li class="team-item">
+                                <span class="team-name">${club}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+                grid.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
