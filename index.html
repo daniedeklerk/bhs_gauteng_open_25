@@ -40,11 +40,27 @@
             color: #2c3e50;
             margin-bottom: 10px;
             font-size: 2rem;
+            word-wrap: break-word;
         }
         
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.5rem;
+            }
+            .header p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            .container {
+                padding: 10px;
+            }
+            .header {
+                padding: 15px;
             }
         }
 
@@ -61,6 +77,18 @@
             justify-content: center;
         }
 
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
         .tab-btn {
             background: rgba(255, 255, 255, 0.9);
             border: none;
@@ -71,12 +99,23 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             font-size: 0.9rem;
+            min-width: 140px;
         }
         
         @media (max-width: 480px) {
             .tab-btn {
                 padding: 10px 15px;
                 font-size: 0.85rem;
+                min-width: unset;
+            }
+            
+            .tab-content {
+                margin-top: 10px;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
             }
         }
 
@@ -129,6 +168,26 @@
             .filters {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+            
+            select, input {
+                width: 100%;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .filters {
+                margin-bottom: 15px;
+            }
+            
+            select, input {
+                padding: 8px;
+                font-size: 13px;
             }
         }
 
@@ -196,6 +255,8 @@
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .card-title {
@@ -223,6 +284,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .team-item:last-child {
@@ -279,6 +342,27 @@
             margin-top: 5px;
         }
 
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2rem;
+            }
+            .stat-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            .stat-label {
+                font-size: 0.9rem;
+            }
+            .stat-card {
+                padding: 15px;
+            }
+        }
+
         .attendance-section {
             background: #fff;
             border-radius: 12px;
@@ -327,18 +411,35 @@
             padding: 15px;
             border-radius: 8px;
             border-left: 4px solid #3498db;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .quantity-label {
             font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .quantity-value {
             font-size: 1.2rem;
             font-weight: 700;
             color: #3498db;
+            word-wrap: break-word;
+        }
+
+        @media (max-width: 480px) {
+            .quantity-label {
+                font-size: 0.9rem;
+            }
+            .quantity-value {
+                font-size: 1rem;
+            }
+            .quantity-item {
+                padding: 12px;
+            }
         }
 
         .rink-grid {
@@ -399,6 +500,14 @@
             border-radius: 8px;
         }
 
+        .schedule-item > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
         .time-badge {
             background: #2ecc71;
             color: white;
@@ -416,6 +525,14 @@
             border-radius: 25px;
             font-size: 16px;
             margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .search-box {
+                padding: 10px 15px;
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
         }
 
         .club-grid {
@@ -483,6 +600,60 @@
             
             .filters {
                 flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .card-title {
+                font-size: 1.1rem;
+                margin-bottom: 5px;
+            }
+            .team-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        @media (max-width: 480px) {
+            .legend {
+                gap: 10px;
+            }
+            .legend span {
+                font-size: 0.9rem;
+            }
+        }
+
+        .schedule-item > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .schedule-item > div {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .schedule-item h4 {
+                font-size: 1rem;
+            }
+            .schedule-item p {
+                font-size: 0.9rem;
             }
         }
     </style>
