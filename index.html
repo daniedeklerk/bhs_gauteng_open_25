@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2025 Perfect Delivery Gauteng Open - Tournament Manager</title>
     <style>
         * {
@@ -21,15 +21,17 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
+            padding: 20px;
+            margin-bottom: 20px;
             text-align: center;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
@@ -37,7 +39,13 @@
         .header h1 {
             color: #2c3e50;
             margin-bottom: 10px;
-            font-size: 2.5rem;
+            font-size: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
         }
 
         .header p {
@@ -47,20 +55,29 @@
 
         .nav-tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 8px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .tab-btn {
             background: rgba(255, 255, 255, 0.9);
             border: none;
-            padding: 15px 25px;
+            padding: 12px 20px;
             border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 480px) {
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
         }
 
         .tab-btn:hover {
@@ -78,8 +95,16 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            overflow-x: hidden;
+        }
+        
+        @media (max-width: 480px) {
+            .tab-content {
+                padding: 15px;
+            }
         }
 
         .tab-content.active {
@@ -97,6 +122,14 @@
             gap: 15px;
             margin-bottom: 25px;
             flex-wrap: wrap;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
 
         .filter-group {
@@ -116,6 +149,13 @@
             border-radius: 8px;
             font-size: 14px;
             transition: border-color 0.3s ease;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .filter-group {
+                width: 100%;
+            }
         }
 
         select:focus, input:focus {
@@ -126,7 +166,15 @@
         .grid {
             display: grid;
             gap: 20px;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            width: 100%;
+        }
+        
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
         }
 
         .card {
@@ -191,11 +239,133 @@
             font-size: 0.9rem;
         }
 
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        
+        @media (max-width: 992px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .attendance-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .attendance-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 768px) {
+            .attendance-title {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
+            }
+        }
+
+        .quantity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .quantity-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .quantity-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .quantity-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .quantity-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .quantity-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #3498db;
+        }
+
         .rink-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             gap: 15px;
             margin-top: 20px;
+            width: 100%;
+        }
+        
+        @media (max-width: 992px) {
+            .rink-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .rink-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .rink-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
         }
 
         .rink-card {
@@ -248,54 +418,39 @@
             margin-bottom: 20px;
         }
 
-        .stats-grid {
+        .club-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
+            width: 100%;
         }
-
-        .stat-card {
-            background: linear-gradient(135deg, #a8edea, #fed6e3);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
+        
+        @media (max-width: 480px) {
+            .club-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
         }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #2c3e50;
-        }
-
-        .stat-label {
-            color: #7f8c8d;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-
-        .attendance-section {
-            background: #fff;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .attendance-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-        }
-
+        
         .quantity-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .quantity-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .quantity-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
         }
 
         .quantity-item {
